@@ -1,4 +1,5 @@
-import type { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
+import { useFilters } from "../hooks/useFilters";
 import { useProducts } from "../hooks/useProducts";
 import type { Product } from "../types/product.interface";
 import { ProductsContext } from "./ProductsContext";
@@ -45,13 +46,26 @@ const productsMock: Product[] = [
   },
 ];
 export const ProductsProvider = ({ children }: PropsWithChildren) => {
-  const { products, handleAddProduct, handleEdit, handleView, handleDelete } = useProducts(productsMock);
-  console.log(products)
-  
+  const {
+    products,
+    handleAddProduct,
+    handleEdit,
+    handleView,
+    handleDelete
+  } = useProducts(productsMock);
+
+  const { 
+    filteredProducts, 
+    searchTerm, 
+    setSearchTerm 
+  } = useFilters(products);
+
   return (
     <ProductsContext.Provider
       value={{
-        products,
+        products: filteredProducts,
+        searchTerm,
+        setSearchTerm,
         handleAddProduct,
         handleEdit,
         handleView,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { Product } from "../types/product.interface";
 
 export const useProducts = (initialProducts: Product[]) => {
-  const [products, setProducts] = useState<Product[]>(initialProducts);
+  const [products] = useState<Product[]>(initialProducts);
 
   const handleAddProduct = () => {
     console.log("Add new product");

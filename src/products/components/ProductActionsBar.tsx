@@ -19,10 +19,7 @@ export const ProductActionsBar = ({ searchTerm, setSearchTerm }: Props) => {
           </h2>
         </div>
         <div className="d-flex gap-2">
-          <SearchBar
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-          />
+          <SearchBar/>
 
           <button
             onClick={handleAddProduct}

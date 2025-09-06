@@ -1,8 +1,9 @@
-type Props = {
-  searchTerm: string;
-  setSearchTerm: (value: string) => void;
-};
-export const SearchBar = ({ searchTerm, setSearchTerm }: Props) => {
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
+
+export const SearchBar = () => {
+  const { searchTerm, setSearchTerm } = useContext(ProductsContext);
+  
   return (
     <>
       <div
