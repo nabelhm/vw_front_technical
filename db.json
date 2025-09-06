@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Wireless Bluetooth Headphones",
+      "category": "Electronics",
+      "price": 79.99,
+      "stock": 25,
+      "description": "High-quality wireless headphones with noise cancellation and 30-hour battery life. Perfect for music lovers and professionals.",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+      "status": "active",
+      "createdAt": "2024-01-15T10:00:00.000Z",
+      "updatedAt": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Organic Cotton T-Shirt",
+      "category": "Clothing",
+      "price": 24.99,
+      "stock": 50,
+      "description": "Comfortable and sustainable organic cotton t-shirt available in multiple colors. Made with eco-friendly materials.",
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",
+      "status": "active",
+      "createdAt": "2024-01-14T09:30:00.000Z",
+      "updatedAt": "2024-01-14T09:30:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Smart Home Security Camera",
+      "category": "Electronics",
+      "price": 149.99,
+      "stock": 8,
+      "description": "1080p HD security camera with night vision, motion detection, and mobile app integration. Easy installation and setup.",
+      "image": "https://images.unsplash.com/photo-1558002038-1055907df827?w=400",
+      "status": "active",
+      "createdAt": "2024-01-13T14:20:00.000Z",
+      "updatedAt": "2024-01-13T14:20:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Ceramic Coffee Mug Set",
+      "category": "Home & Garden",
+      "price": 39.99,
+      "stock": 0,
+      "description": "Beautiful set of 4 ceramic coffee mugs with elegant design. Dishwasher and microwave safe. Perfect for gifting.",
+      "image": "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?w=400",
+      "status": "active",
+      "createdAt": "2024-01-12T11:15:00.000Z",
+      "updatedAt": "2024-01-12T11:15:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Yoga Exercise Mat",
+      "category": "Sports",
+      "price": 29.99,
+      "stock": 15,
+      "description": "Premium non-slip yoga mat with extra cushioning. Lightweight and portable with carrying strap included.",
+      "image": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400",
+      "status": "inactive",
+      "createdAt": "2024-01-11T16:45:00.000Z",
+      "updatedAt": "2024-01-11T16:45:00.000Z"
+    },
+    {
+      "id": "6",
+      "name": "LED Desk Lamp",
+      "category": "Home & Garden",
+      "price": 45.99,
+      "stock": 20,
+      "description": "Adjustable LED desk lamp with multiple brightness levels and USB charging port. Modern design with touch controls.",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
+      "status": "active",
+      "createdAt": "2024-01-10T08:30:00.000Z",
+      "updatedAt": "2024-01-10T08:30:00.000Z"
+    }
+  ]
+}
