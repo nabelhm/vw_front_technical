@@ -11,6 +11,6 @@ export interface Product {
   updatedAt: string;
 }
 
-export type Category = 'Kitchen' | 'Electronics' | 'Garden' | 'Construction' | 'Sports';
+export type Category = 'Kitchen' | 'Electronics' | 'Garden' | 'Construction' | 'Sports' | 'Clothing';
 
 export type Status = 'active' | 'inactive';

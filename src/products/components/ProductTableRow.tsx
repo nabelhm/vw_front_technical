@@ -1,13 +1,14 @@
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
 import type { Product } from "../types/product.interface";
 
 type Props = {
   product: Product;
-  handleView: (id: string) => void;
-  handleEdit: (id: string) => void;
-  handleDelete: (id: string) => void;
 };
 
-export const ProductTableRow = ({ product, handleView, handleEdit, handleDelete }: Props) => {
+export const ProductTableRow = ({ product }: Props) => {
+  const { handleView, handleEdit, handleDelete } = useContext(ProductsContext);
+  
   return (
     <tr key={product.id}>
       <td className="fw-medium">

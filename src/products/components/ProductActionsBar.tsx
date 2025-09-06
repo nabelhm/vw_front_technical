@@ -1,12 +1,15 @@
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
 import { SearchBar } from "./SearchBar";
 
 type Props = {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  handleAddProduct: () => void;
 };
 
-export const ProductActionsBar = ({ searchTerm, setSearchTerm, handleAddProduct }: Props) => {
+export const ProductActionsBar = ({ searchTerm, setSearchTerm }: Props) => {
+  const { handleAddProduct } = useContext(ProductsContext);
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-4">

@@ -1,14 +1,10 @@
-import type { Product } from "../types/product.interface";
+import { useContext } from "react";
+import { ProductsContext } from "../context/ProductsContext";
 import { ProductTableRow } from "./ProductTableRow";
 
-type Props = {
-  products: Product[];
-  handleView: (id: string) => void;
-  handleEdit: (id: string) => void;
-  handleDelete: (id: string) => void;
-};
+export const ProductTable = () => {
+  const { products } = useContext(ProductsContext);
 
-export const ProductTable = ({ products, handleView, handleEdit, handleDelete }: Props) => {
   return (
     <div className="table-responsive">
       <table className="table table-bordered table-hover">
@@ -23,15 +19,20 @@ export const ProductTable = ({ products, handleView, handleEdit, handleDelete }:
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <ProductTableRow
-              key={product.id}
-              product={product}
-              handleView={handleView}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => (
+              <ProductTableRow
+                key={product.id}
+                product={product}
+              />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="text-center">
+                No products found.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
