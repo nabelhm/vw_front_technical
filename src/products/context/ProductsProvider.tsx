@@ -3,6 +3,7 @@ import { useFilters } from "../hooks/useFilters";
 import { useProducts } from "../hooks/useProducts";
 import type { Product } from "../types/product.interface";
 import { ProductsContext } from "./ProductsContext";
+import { useSort } from "../hooks/useSort";
 // Mock data
 const productsMock: Product[] = [
   {
@@ -60,11 +61,16 @@ export const ProductsProvider = ({ children }: PropsWithChildren) => {
     setSearchTerm 
   } = useFilters(products);
 
+  const { sortedProducts, sortField, sortOrder, handleSort } = useSort(filteredProducts);
+
   return (
     <ProductsContext.Provider
       value={{
-        products: filteredProducts,
+        products: sortedProducts,
         searchTerm,
+        sortField,
+        sortOrder,
+        handleSort,
         setSearchTerm,
         handleAddProduct,
         handleEdit,

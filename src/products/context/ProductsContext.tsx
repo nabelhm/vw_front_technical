@@ -1,9 +1,12 @@
 import { createContext } from 'react'
-import type { Product } from '../types/product.interface';
+import type { Product, SortField, SortOrder } from '../types/product.interface';
 
 interface Props {
   products: Product[];
   searchTerm: string;
+  sortField: SortField;
+  sortOrder: SortOrder;
+  handleSort: (field: SortField) => void;
   setSearchTerm: (term: string) => void;
   handleAddProduct: () => void;
   handleEdit: (id: string) => void;

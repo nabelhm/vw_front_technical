@@ -14,3 +14,6 @@ export interface Product {
 export type Category = 'Kitchen' | 'Electronics' | 'Garden' | 'Construction' | 'Sports' | 'Clothing';
 
 export type Status = 'active' | 'inactive';
+
+export type SortField = 'name' | 'category' | 'price' | 'stock' | 'status';
+export type SortOrder = 'asc' | 'desc';
