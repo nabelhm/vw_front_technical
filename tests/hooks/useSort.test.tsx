@@ -1,8 +1,8 @@
 // __tests__/hooks/useSort.test.tsx
 import { renderHook, act } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-import { useSort } from '../../../src/products/hooks/useSort';
-import type { Product } from '../../../src/products/types/product.interface';
+import { useSort } from '../../src/hooks/useSort';
+import type { Product } from '../../src/types/product.interface';
 
 const mockProducts: Product[] = [
   {

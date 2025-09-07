@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { getProductsAction } from '../../../src/products/actions/get-products-action';
-import { productApi } from '../../../src/products/api/product.api';
-import type { Product } from '../../../src/products/types/product.interface';
+import { getProductsAction } from '../../src/actions/get-products-action';
+import { productApi } from '../../src/api/product.api';
+import type { Product } from '../../src/types/product.interface';
 
-vi.mock('../../../src/products/api/product.api', () => ({
+vi.mock('../../src/api/product.api', () => ({
   productApi: {
     get: vi.fn()
   }

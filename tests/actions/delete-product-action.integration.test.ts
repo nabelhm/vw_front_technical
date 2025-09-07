@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { createProductAction } from '../../../src/products/actions/create-product-action';
-import { deleteProductAction } from '../../../src/products/actions/delete-product-action';
-import { getProductByIdAction } from '../../../src/products/actions/get-product-by-id-action';
-import { CreateProductData } from '../../../src/products/types/product.interface';
+import { createProductAction } from '../../src/actions/create-product-action';
+import { deleteProductAction } from '../../src/actions/delete-product-action';
+import { getProductByIdAction } from '../../src/actions/get-product-by-id-action';
+import { CreateProductData } from '../../src/types/product.interface';
 
 describe('deleteProductAction - Real Integration Tests', () => {
 

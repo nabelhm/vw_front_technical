@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { updateProductAction } from '../../../src/products/actions/update-product-action';
-import { createProductAction } from '../../../src/products/actions/create-product-action';
-import { CreateProductData, UpdateProductData } from '../../../src/products/types/product.interface';
+import { updateProductAction } from '../../src/actions/update-product-action';
+import { createProductAction } from '../../src/actions/create-product-action';
+import { CreateProductData, UpdateProductData } from '../../src/types/product.interface';
 
 describe('updateProductAction - Real Integration Tests', () => {
 

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { getProductByIdAction } from '../../../src/products/actions/get-product-by-id-action';
+import { getProductByIdAction } from '../../src/actions/get-product-by-id-action';
 
 describe('getProductByIdAction Integration', () => {
   test('should fetch real product by id from JSON Server', async () => {

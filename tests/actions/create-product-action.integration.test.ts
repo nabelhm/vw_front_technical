@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createProductAction } from '../../../src/products/actions/create-product-action';
-import { productApi } from '../../../src/products/api/product.api';
-import type { CreateProductData } from '../../../src/products/types/product.interface';
+import { createProductAction } from '../../src/actions/create-product-action';
+import { productApi } from '../../src/api/product.api';
+import type { CreateProductData } from '../../src/types/product.interface';
 
-vi.mock('../../../src/products/api/product.api');
+vi.mock('../../src/api/product.api');
 
 describe('createProductAction - Integration Tests', () => {
   beforeEach(() => {

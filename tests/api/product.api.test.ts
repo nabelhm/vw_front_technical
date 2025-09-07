@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { productApi } from '../../../src/products/api/product.api';
+import { productApi } from '../../src/api/product.api';
 
 describe('ProductApi', () => {
   test('should be configure pointing to the testing server', () => {

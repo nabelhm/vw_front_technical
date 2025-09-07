@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { ProductActionsBar } from '../../../src/products/components/ProductActionsBar';
-import { ProductsContext } from '../../../src/products/context/ProductsContext';
+import { ProductActionsBar } from '../../src/components/ProductActionsBar';
+import { ProductsContext } from '../../src/context/ProductsContext';
 
-vi.mock('../../../src/products/components/SearchBar', () => ({
+vi.mock('../../src/components/SearchBar', () => ({
   SearchBar: () => <div data-testid="search-bar">SearchBar Mock</div>
 }));
 

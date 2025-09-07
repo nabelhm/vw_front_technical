@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import { useProducts } from '../../../src/products/hooks/useProducts';
-import { Product } from '../../../src/products/types/product.interface';
+import { useProducts } from '../../src/hooks/useProducts';
+import { Product } from '../../src/types/product.interface';
 
 const mockProducts: Product[] = [
   {

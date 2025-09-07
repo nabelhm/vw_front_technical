@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { SearchBar } from '../../../src/products/components/SearchBar';
-import { ProductsContext } from '../../../src/products/context/ProductsContext';
+import { SearchBar } from '../../src/components/SearchBar';
+import { ProductsContext } from '../../src/context/ProductsContext';
 
 const mockContextValue = {
   products: [],

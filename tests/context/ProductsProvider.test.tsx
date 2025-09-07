@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
 import { useContext } from 'react';
-import { ProductsProvider } from '../../../src/products/context/ProductsProvider';
-import { ProductsContext } from '../../../src/products/context/ProductsContext';
+import { ProductsProvider } from '../../src/context/ProductsProvider';
+import { ProductsContext } from '../../src/context/ProductsContext';
 
-vi.mock('../../../src/products/hooks/useProducts', () => ({
+vi.mock('../../src/hooks/useProducts', () => ({
   useProducts: vi.fn(() => ({
     products: [
       { id: '1', name: 'Test Product 1', category: 'Electronics', price: 100, stock: 10, status: 'active' },
@@ -17,7 +17,7 @@ vi.mock('../../../src/products/hooks/useProducts', () => ({
   }))
 }));
 
-vi.mock('../../../src/products/hooks/useFilters', () => ({
+vi.mock('../../src/hooks/useFilters', () => ({
   useFilters: vi.fn(() => ({
     filteredProducts: [
       { id: '1', name: 'Test Product 1', category: 'Electronics', price: 100, stock: 10, status: 'active' }
@@ -27,7 +27,7 @@ vi.mock('../../../src/products/hooks/useFilters', () => ({
   }))
 }));
 
-vi.mock('../../../src/products/hooks/useSort', () => ({
+vi.mock('../../src/hooks/useSort', () => ({
   useSort: vi.fn(() => ({
     sortedProducts: [
       { id: '1', name: 'Test Product 1', category: 'Electronics', price: 100, stock: 10, status: 'active' }

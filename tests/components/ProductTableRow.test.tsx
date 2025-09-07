@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { ProductTableRow } from '../../../src/products/components/ProductTableRow';
-import { ProductsContext } from '../../../src/products/context/ProductsContext';
-import type { Product } from '../../../src/products/types/product.interface';
+import { ProductTableRow } from '../../src/components/ProductTableRow';
+import { ProductsContext } from '../../src/context/ProductsContext';
+import type { Product } from '../../src/types/product.interface';
 
 const mockProduct: Product = {
   id: "test-id-123",

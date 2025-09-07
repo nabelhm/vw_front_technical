@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { updateProductAction } from '../../../src/products/actions/update-product-action';
-import { productApi } from '../../../src/products/api/product.api';
-import { mapUpdateProductDataToProduct, } from '../../../src/products/mappers/product.mapper';
-import type { Product, UpdateProductData } from '../../../src/products/types/product.interface';
+import { updateProductAction } from '../../src/actions/update-product-action';
+import { productApi } from '../../src/api/product.api';
+import { mapUpdateProductDataToProduct, } from '../../src/mappers/product.mapper';
+import type { Product, UpdateProductData } from '../../src/types/product.interface';
 
-vi.mock('../../../src/products/api/product.api');
-vi.mock('../../../src/products/mappers/product.mapper');
+vi.mock('../../src/api/product.api');
+vi.mock('../../src/mappers/product.mapper');
 
 const mockedProductApi = vi.mocked(productApi);
 const mockedMapUpdateProductDataToProduct = vi.mocked(mapUpdateProductDataToProduct);

@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
-import { ProductTable } from '../../../src/products/components/ProductTable';
-import { ProductsContext } from '../../../src/products/context/ProductsContext';
-import type { Product, SortField, SortOrder } from '../../../src/products/types/product.interface';
+import { ProductTable } from '../../src/components/ProductTable';
+import { ProductsContext } from '../../src/context/ProductsContext';
+import type { Product, SortField, SortOrder } from '../../src/types/product.interface';
 
-vi.mock('../../../src/products/components/ProductTableRow', () => ({
+vi.mock('../../src/components/ProductTableRow', () => ({
   ProductTableRow: ({ product }: { product: Product }) => (
     <tr data-testid={`product-row-${product.id}`}>
       <td>{product.name}</td>

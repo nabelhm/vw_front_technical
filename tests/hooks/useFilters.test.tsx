@@ -1,8 +1,8 @@
 // __tests__/hooks/useFilters.test.tsx
 import { renderHook, act } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-import { useFilters } from '../../../src/products/hooks/useFilters';
-import type { Product } from '../../../src/products/types/product.interface';
+import { useFilters } from '../../src/hooks/useFilters';
+import type { Product } from '../../src/types/product.interface';
 
 const mockProducts: Product[] = [
   {

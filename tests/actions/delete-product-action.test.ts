@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { deleteProductAction } from '../../../src/products/actions/delete-product-action';
-import { productApi } from '../../../src/products/api/product.api';
+import { deleteProductAction } from '../../src/actions/delete-product-action';
+import { productApi } from '../../src/api/product.api';
 
-vi.mock('../../../src/products/api/product.api');
+vi.mock('../../src/api/product.api');
 
 const mockedProductApi = vi.mocked(productApi);
 

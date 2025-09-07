@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-import { Header } from '../../../src/products/components/Header';
+import { Header } from '../../src/components/Header';
 
 describe('Header Component', () => {
   test('should render title correctly', () => {

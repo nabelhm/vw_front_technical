@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
 import { useContext } from 'react';
-import { ProductsProvider } from '../../../src/products/context/ProductsProvider';
-import { ProductsContext } from '../../../src/products/context/ProductsContext';
+import { ProductsProvider } from '../../src/context/ProductsProvider';
+import { ProductsContext } from '../../src/context/ProductsContext';
 
 const IntegrationTestComponent = () => {
   const {
