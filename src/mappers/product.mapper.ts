@@ -42,7 +42,8 @@ export const mapCreateProductDataToProduct = (
 
 export const mapUpdateProductDataToProduct = (
   productData: UpdateProductData,
-  id: string
+  id: string,
+  createdAt?: string
 ): Product => {
   try {
     return {
@@ -54,7 +55,7 @@ export const mapUpdateProductDataToProduct = (
       description: productData.description.trim(),
       image: productData.image.trim(),
       status: mapStringToStatus(productData.status),
-      createdAt: new Date().toISOString(),
+      createdAt: createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
   } catch (error) {

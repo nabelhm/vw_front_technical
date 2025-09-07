@@ -29,6 +29,7 @@ export const Message = ({
 
       return () => clearTimeout(timer);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message, autoClose, autoCloseDelay]);
 
   const handleDismiss = () => {
