@@ -10,11 +10,15 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:ci": "vitest run --coverage"
+    "test:ci": "vitest run --coverage",
+    "json-server": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
+    "axios": "^1.11.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-hook-form": "^7.62.0",
+    "react-router": "^7.8.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
@@ -29,6 +33,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "jsdom": "^26.1.0",
+    "json-server": "^1.0.0-beta.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2",
