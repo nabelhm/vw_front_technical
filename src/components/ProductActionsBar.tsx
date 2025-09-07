@@ -1,9 +1,13 @@
-import { useContext } from "react";
-import { ProductsContext } from "../context/ProductsContext";
+import { useProductNavigation } from "../hooks/useProductNavigation";
 import { SearchBar } from "./SearchBar";
 
 export const ProductActionsBar = () => {
-  const { handleAddProduct } = useContext(ProductsContext);
+  const { goToAddProduct } = useProductNavigation();
+
+  const handleAddProduct = (event: React.MouseEvent) => {
+    event?.preventDefault();
+    goToAddProduct();
+  };
 
   return (
     <>
@@ -14,7 +18,7 @@ export const ProductActionsBar = () => {
           </h2>
         </div>
         <div className="d-flex gap-2">
-          <SearchBar/>
+          <SearchBar />
 
           <button
             onClick={handleAddProduct}
@@ -25,5 +29,5 @@ export const ProductActionsBar = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};

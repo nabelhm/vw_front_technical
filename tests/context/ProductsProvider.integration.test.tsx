@@ -1,8 +1,62 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { useContext } from 'react';
-import { ProductsProvider } from '../../src/context/ProductsProvider';
+import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { ProductsContext } from '../../src/context/ProductsContext';
+import { ProductsProvider } from '../../src/context/ProductsProvider';
+
+vi.mock('../../src/hooks/useProducts', () => ({
+  useProducts: vi.fn(() => ({
+    products: [
+      {
+        id: "1",
+        name: "Wireless Bluetooth Headphones",
+        category: "Electronics",
+        price: 79.99,
+        stock: 25,
+        description: "High-quality wireless headphones with noise cancellation.",
+        image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400",
+        status: "active",
+        createdAt: "2024-01-15T10:00:00.000Z",
+        updatedAt: "2024-01-15T10:00:00.000Z",
+      },
+      {
+        id: "2",
+        name: "Organic Cotton T-Shirt",
+        category: "Clothing",
+        price: 24.99,
+        stock: 50,
+        description: "Comfortable and sustainable organic cotton t-shirt.",
+        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",
+        status: "active",
+        createdAt: "2024-01-14T09:30:00.000Z",
+        updatedAt: "2024-01-14T09:30:00.000Z",
+      },
+      {
+        id: "3",
+        name: "Smart Home Security Camera",
+        category: "Electronics",
+        price: 149.99,
+        stock: 8,
+        description: "1080p HD security camera with night vision.",
+        image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=400",
+        status: "active",
+        createdAt: "2024-01-13T14:20:00.000Z",
+        updatedAt: "2024-01-13T14:20:00.000Z",
+      },
+    ],
+    isLoading: false,
+    isInitialLoading: false,
+    error: null,
+    createProduct: vi.fn(),
+    updateProduct: vi.fn(),
+    deleteProduct: vi.fn(),
+    refetchProducts: vi.fn(),
+    setError: vi.fn(),
+  }))
+}));
+
+vi.unmock('../../src/hooks/useFilters');
+vi.unmock('../../src/hooks/useSort');
 
 const IntegrationTestComponent = () => {
   const {
@@ -53,6 +107,10 @@ const IntegrationTestComponent = () => {
 };
 
 describe('ProductsProvider Integration', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   test('should display all mock products initially', () => {
     render(
       <ProductsProvider>
@@ -83,6 +141,22 @@ describe('ProductsProvider Integration', () => {
     expect(screen.getByTestId('product-0').innerHTML).toContain('Wireless Bluetooth Headphones');
   });
 
+  test('should filter products by category', () => {
+    render(
+      <ProductsProvider>
+        <IntegrationTestComponent />
+      </ProductsProvider>
+    );
+
+    const searchInput = screen.getByTestId('search-input');
+    
+    fireEvent.change(searchInput, { target: { value: 'Electronics' } });
+    
+    expect(screen.getByTestId('total-products').innerHTML).toBe('2');
+    expect(screen.getByTestId('product-0').innerHTML).toContain('Smart Home Security Camera');
+    expect(screen.getByTestId('product-1').innerHTML).toContain('Wireless Bluetooth Headphones');
+  });
+
   test('should sort products by price when clicking sort button', () => {
     render(
       <ProductsProvider>
@@ -95,6 +169,7 @@ describe('ProductsProvider Integration', () => {
     fireEvent.click(sortPriceButton);
     
     expect(screen.getByTestId('current-sort').innerHTML).toBe('price-asc');
+
     expect(screen.getByTestId('product-0').innerHTML).toContain('24.99');
     expect(screen.getByTestId('product-1').innerHTML).toContain('79.99');
     expect(screen.getByTestId('product-2').innerHTML).toContain('149.99');
@@ -135,5 +210,35 @@ describe('ProductsProvider Integration', () => {
     expect(screen.getByTestId('current-sort').innerHTML).toBe('price-asc');
     expect(screen.getByTestId('product-0').innerHTML).toContain('79.99');
     expect(screen.getByTestId('product-1').innerHTML).toContain('149.99');
+  });
+
+  test('should show no results when search has no matches', () => {
+    render(
+      <ProductsProvider>
+        <IntegrationTestComponent />
+      </ProductsProvider>
+    );
+
+    const searchInput = screen.getByTestId('search-input');
+    
+    fireEvent.change(searchInput, { target: { value: 'nonexistent' } });
+    
+    expect(screen.getByTestId('total-products').innerHTML).toBe('0');
+  });
+
+  test('should clear search and show all products', () => {
+    render(
+      <ProductsProvider>
+        <IntegrationTestComponent />
+      </ProductsProvider>
+    );
+
+    const searchInput = screen.getByTestId('search-input');
+    
+    fireEvent.change(searchInput, { target: { value: 'wireless' } });
+    expect(screen.getByTestId('total-products').innerHTML).toBe('1');
+    
+    fireEvent.change(searchInput, { target: { value: '' } });
+    expect(screen.getByTestId('total-products').innerHTML).toBe('3');
   });
 });

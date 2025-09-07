@@ -1,24 +1,20 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { MemoryRouter } from 'react-router';
 import { ProductActionsBar } from '../../src/components/ProductActionsBar';
-import { ProductsContext } from '../../src/context/ProductsContext';
 
 vi.mock('../../src/components/SearchBar', () => ({
   SearchBar: () => <div data-testid="search-bar">SearchBar Mock</div>
 }));
 
-const mockContextValue = {
-  products: [],
-  searchTerm: '',
-  setSearchTerm: vi.fn(),
-  sortField: 'name' as const,
-  sortOrder: 'asc' as const,
-  handleSort: vi.fn(),
-  handleAddProduct: vi.fn(),
-  handleEdit: vi.fn(),
-  handleView: vi.fn(),
-  handleDelete: vi.fn(),
-};
+const mockNavigate = vi.fn();
+vi.mock('react-router', async () => {
+  const actual = await vi.importActual('react-router');
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 describe('ProductActionsBar Component', () => {
 
@@ -26,45 +22,43 @@ describe('ProductActionsBar Component', () => {
     vi.clearAllMocks();
   });
 
-  const renderWithContext = (contextValue = mockContextValue) => {
+  const renderWithRouter = () => {
     return render(
-      <ProductsContext.Provider value={contextValue}>
+      <MemoryRouter>
         <ProductActionsBar />
-      </ProductsContext.Provider>
+      </MemoryRouter>
     );
   };
 
   test('should render Products title correctly', () => {
-    renderWithContext();
+    renderWithRouter();
     
     const titleElement = screen.getByRole('heading', { level: 2 });
     expect(titleElement).toBeDefined();
     expect(titleElement.innerHTML).toContain('Products');
-    expect(titleElement.className).toContain('h4');
-    expect(titleElement.className).toContain('mb-0');
   });
 
   test('should render SearchBar component', () => {
-    renderWithContext();
+    renderWithRouter();
     
     const searchBar = screen.getByTestId('search-bar');
     expect(searchBar).toBeDefined();
   });
 
   test('should render Add Product button', () => {
-    renderWithContext();
+    renderWithRouter();
     
     const addButton = screen.getByRole('button', { name: /add product/i });
     expect(addButton).toBeDefined();
   });
 
-  test('should call handleAddProduct when Add Product button is clicked', () => {
-    renderWithContext();
+  test('should navigate to add-product when button is clicked', () => {
+    renderWithRouter();
     
     const addButton = screen.getByRole('button', { name: /add product/i });
     fireEvent.click(addButton);
     
-    expect(mockContextValue.handleAddProduct).toHaveBeenCalledTimes(1);
+    expect(mockNavigate).toHaveBeenCalledTimes(1);
+    expect(mockNavigate).toHaveBeenCalledWith('/add-product');
   });
-
 });

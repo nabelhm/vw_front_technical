@@ -1,34 +1,109 @@
-import { useState } from "react";
-import type { Product } from "../types/product.interface";
+import { useCallback, useEffect, useState } from "react";
+import { createProductAction } from "../actions/create-product-action";
+import { deleteProductAction } from "../actions/delete-product-action";
+import { getProductsAction } from "../actions/get-products-action";
+import { updateProductAction } from "../actions/update-product-action";
+import type { CreateProductData, Product, UpdateProductData } from "../types/product.interface";
 
-export const useProducts = (initialProducts: Product[]) => {
-  const [products] = useState<Product[]>(initialProducts);
+export const useProducts = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleAddProduct = () => {
-    console.log("Add new product");
-    // TODO: Implement
-  };
+  const fetchProducts = useCallback(async () => {
+    setIsInitialLoading(true);
+    setError(null);
 
-  const handleEdit = (id: string) => {
-    console.log("Edit product:", id);
-    // TODO: Implement
-  };
+    try {
+      const fetchedProducts = await getProductsAction();
+      setProducts(fetchedProducts);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error loading products';
+      setError(errorMessage);
+      console.error('Failed to fetch products:', err);
+    } finally {
+      setIsInitialLoading(false);
+    }
+  }, []);
 
-  const handleView = (id: string) => {
-    console.log("View product:", id);
-    // TODO: Implement
-  };
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
-  const handleDelete = (id: string) => {
-    console.log("Delete product:", id);
-    // TODO: Implement
-  };
+
+  const createProduct = useCallback(async (productData: CreateProductData): Promise<Product> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const newProduct = await createProductAction(productData);
+
+      setProducts(prev => [...prev, newProduct]);
+
+      return newProduct;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error creating product';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const updateProduct = useCallback(async (id: string, productData: UpdateProductData): Promise<Product> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const updatedProduct = await updateProductAction(id, productData);
+
+      setProducts(prev =>
+        prev.map(product =>
+          product.id === id ? updatedProduct : product
+        )
+      );
+
+      return updatedProduct;
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error updating product';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const deleteProduct = useCallback(async (id: string): Promise<void> => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await deleteProductAction(id);
+
+      setProducts(prev => prev.filter(product => product.id !== id));
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Error deleting product';
+      setError(errorMessage);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const refetchProducts = useCallback(async () => {
+    await fetchProducts();
+  }, [fetchProducts]);
 
   return {
     products,
-    handleAddProduct,
-    handleEdit,
-    handleView,
-    handleDelete
-  }
-}
+    isLoading,
+    isInitialLoading,
+    error,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    refetchProducts,
+    setError
+  };
+};
