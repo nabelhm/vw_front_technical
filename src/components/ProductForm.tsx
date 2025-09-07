@@ -3,12 +3,13 @@ import { useForm } from 'react-hook-form';
 import { ProductsContext } from '../context/ProductsContext';
 import { useProductNavigation } from '../hooks/useProductNavigation';
 import type { Category, CreateProductData, Status, UpdateProductData } from '../types/product.interface';
+import { Message } from './Message';
 
 interface ProductFormProps {
   onCancel?: () => void;
   isEdit?: boolean;
   initialData?: Partial<CreateProductData>;
-  productId?: string;
+  productId?: string; 
 }
 
 export const ProductForm = ({ 
@@ -18,8 +19,8 @@ export const ProductForm = ({
   productId 
 }: ProductFormProps) => {
   const { goToDashboardWithMessage, goToDashboard } = useProductNavigation();
-  const { createProduct, updateProduct, isLoading, setError } = useContext(ProductsContext);
-  
+  const { createProduct, updateProduct, isLoading, setError, error } = useContext(ProductsContext);
+
   const {
     register,
     handleSubmit,
@@ -62,7 +63,7 @@ export const ProductForm = ({
       }
     } catch (error) {
       console.error('Error saving product:', error);
-      alert(`Error ${isEdit ? 'updating' : 'creating'} product. Please try again.`);
+      setError(`Error ${isEdit ? 'updating' : 'creating'} product. Please try again.`);
     }
   };
 
@@ -70,9 +71,15 @@ export const ProductForm = ({
 
   return (
     <div className="card-body">
+      <Message 
+        message={error} 
+        type="error" 
+        onDismiss={() => setError(null)}
+        autoClose={false}
+      />
+      
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
-          {/* Product Name */}
           <div className="col-md-6 mb-3">
             <label htmlFor="name" className="form-label">
               Product Name <span className="text-danger">*</span>
@@ -100,7 +107,6 @@ export const ProductForm = ({
             )}
           </div>
 
-          {/* Category */}
           <div className="col-md-6 mb-3">
             <label htmlFor="category" className="form-label">
               Category <span className="text-danger">*</span>
@@ -127,7 +133,6 @@ export const ProductForm = ({
         </div>
 
         <div className="row">
-          {/* Price */}
           <div className="col-md-6 mb-3">
             <label htmlFor="price" className="form-label">
               Price <span className="text-danger">*</span>
@@ -159,7 +164,6 @@ export const ProductForm = ({
             </div>
           </div>
 
-          {/* Stock Quantity */}
           <div className="col-md-6 mb-3">
             <label htmlFor="stock" className="form-label">
               Stock Quantity <span className="text-danger">*</span>
@@ -188,7 +192,6 @@ export const ProductForm = ({
           </div>
         </div>
 
-        {/* Image URL */}
         <div className="mb-3">
           <label htmlFor="image" className="form-label">
             Image URL
@@ -211,7 +214,6 @@ export const ProductForm = ({
           )}
         </div>
 
-        {/* Product Description */}
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
             Product Description
@@ -237,7 +239,6 @@ export const ProductForm = ({
           </div>
         </div>
 
-        {/* Status */}
         <div className="mb-4">
           <label htmlFor="status" className="form-label">
             Status
@@ -256,11 +257,10 @@ export const ProductForm = ({
           </select>
         </div>
 
-        {/* Buttons */}
         <div className="d-flex justify-content-end gap-2">
           <button
             type="button"
-            className="btn btn-outline-secondary"
+            className="btn btn-secondary"
             onClick={handleCancel}
             disabled={formIsLoading}
           >
