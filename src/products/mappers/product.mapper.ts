@@ -62,7 +62,7 @@ export const mapUpdateProductDataToProduct = (
   }
 };
 
-export const mapApiResponseToProduct = (apiData: any): Product => {
+export const mapApiResponseToProduct = (apiData: Product): Product => {
   return {
     id: apiData.id,
     name: apiData.name,
