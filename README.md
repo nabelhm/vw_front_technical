@@ -18,6 +18,7 @@
 - [AI Tool Usage](#ai-tool-usage)
 - [Git Strategy](#git-strategy)
 - [Wireframes](#wireframes)
+- [CI/CD Workflow](#cicd-workflow)
 
 ## Overview
 
@@ -405,7 +406,7 @@ Current bundle size: ~150KB gzipped
 ### Usage Scenarios
 
 1. **Code Generation and Architecture**
-   - **Usage**: Initial pages structure
+   - **Usage**: Initial HTML page structure
    - **Developer Input**: Provided requirements, wireframes, and specifications
    - **Integration**: Reviewed and refined all AI-generated code for project consistency
    - **Value**: Accelerated initial development while maintaining code quality
@@ -512,6 +513,27 @@ The following wireframes were designed based on the project specifications and u
 **Form Layout**: Two-column responsive layout balances screen space utilization with form usability, especially on mobile devices.
 
 **Navigation Pattern**: Consistent back navigation and action placement following established UX patterns for administrative interfaces.
+
+## CI/CD Workflow
+
+This project uses **GitHub Actions** for continuous integration.
+
+### Workflow Overview
+- **Trigger**: Runs on every push or pull request to `develop` or `main`.
+- **Environment**: Ubuntu latest, with Node.js versions **20.x** and **22.x**.
+- **Steps**:
+  1. **Checkout**: Pulls the repository code.
+  2. **Setup Node.js**: Configures Node.js with npm caching for faster builds.
+  3. **Install dependencies**: Runs `npm ci` for a clean install.
+  4. **Linting**: Runs `npm run lint` to enforce code quality.
+  5. **Testing**: Starts a JSON Server mock API and runs `npm run test:ci`.
+  6. **Build**: Runs `npm run build` to ensure the app builds successfully.
+
+### Purpose
+This pipeline ensures that:
+- The codebase is always tested against multiple Node.js versions.
+- Linting and tests must pass before merging changes.
+- Builds remain consistent and reproducible.
 
 ---
 

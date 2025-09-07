@@ -63,14 +63,14 @@
     {
       "id": "6",
       "name": "LED Desk Lamp",
-      "category": "Home & Garden",
+      "category": "Kitchen",
       "price": 45.99,
       "stock": 20,
       "description": "Adjustable LED desk lamp with multiple brightness levels and USB charging port. Modern design with touch controls.",
       "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400",
       "status": "active",
       "createdAt": "2024-01-10T08:30:00.000Z",
-      "updatedAt": "2024-01-10T08:30:00.000Z"
+      "updatedAt": "2025-09-07T22:42:38.473Z"
     }
   ]
 }
