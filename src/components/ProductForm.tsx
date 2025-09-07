@@ -1,15 +1,14 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useProductNavigation } from '../hooks/useProductNavigation';
 import { ProductsContext } from '../context/ProductsContext';
-import type { CreateProductData, UpdateProductData } from '../mappers/product.mapper';
-import type { Category, Status } from '../types/product.interface';
+import { useProductNavigation } from '../hooks/useProductNavigation';
+import type { Category, CreateProductData, Status, UpdateProductData } from '../types/product.interface';
 
 interface ProductFormProps {
   onCancel?: () => void;
   isEdit?: boolean;
   initialData?: Partial<CreateProductData>;
-  productId?: string; // Para modo edición
+  productId?: string;
 }
 
 export const ProductForm = ({ 
@@ -39,7 +38,6 @@ export const ProductForm = ({
     mode: 'onChange'
   });
 
-  // Opciones para los selects
   const categoryOptions: Category[] = ['Kitchen', 'Electronics', 'Garden', 'Construction', 'Sports', 'Clothing'];
   const statusOptions: Status[] = ['active', 'inactive'];
 
@@ -53,26 +51,21 @@ export const ProductForm = ({
 
   const onSubmit = async (data: CreateProductData) => {
     try {
-      // Limpiar errores previos
       setError(null);
       
       if (isEdit && productId) {
-        // Modo edición
         await updateProduct(productId, data as UpdateProductData);
         goToDashboardWithMessage('Product updated successfully!');
       } else {
-        // Modo creación
         await createProduct(data);
         goToDashboardWithMessage('Product created successfully!');
       }
     } catch (error) {
       console.error('Error saving product:', error);
-      // El error ya se maneja en el contexto, pero podemos mostrar feedback adicional
       alert(`Error ${isEdit ? 'updating' : 'creating'} product. Please try again.`);
     }
   };
 
-  // Usar isSubmitting del formulario O isLoading del contexto
   const formIsLoading = isSubmitting || isLoading;
 
   return (
