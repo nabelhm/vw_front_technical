@@ -28,5 +28,9 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run lint
-    - run: npm run test:ci
+    - name: Run tests with JSON Server
+      run: |
+        npx json-server --watch db.json --port 3001 &
+        sleep 3
+        npm run test:ci
     - run: npm run build --if-present
