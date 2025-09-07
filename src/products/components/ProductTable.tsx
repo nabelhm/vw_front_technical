@@ -38,7 +38,7 @@ export const ProductTable = () => {
           </tr>
         </thead>
         <tbody>
-          {products.length > 0 ? (
+          {products?.length > 0 ? (
             products.map((product) => (
               <ProductTableRow
                 key={product.id}

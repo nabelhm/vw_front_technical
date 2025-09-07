@@ -2,12 +2,7 @@ import { useContext } from "react";
 import { ProductsContext } from "../context/ProductsContext";
 import { SearchBar } from "./SearchBar";
 
-type Props = {
-  searchTerm: string;
-  setSearchTerm: (value: string) => void;
-};
-
-export const ProductActionsBar = ({ searchTerm, setSearchTerm }: Props) => {
+export const ProductActionsBar = () => {
   const { handleAddProduct } = useContext(ProductsContext);
 
   return (

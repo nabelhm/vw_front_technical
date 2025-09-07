@@ -17,7 +17,7 @@ export const ProductTableRow = ({ product }: Props) => {
       <td>{product.category}</td>
       <td>{product.stock} units</td>
       <td>
-        ${product.price.toFixed(2)}
+        {product.price.toFixed(2)} €
       </td>
       <td className="text-center">
         {product.status ===
