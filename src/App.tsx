@@ -14,11 +14,8 @@ function App() {
             <div className="card m-4">
               <Header title="Product Management" subtitle="Manage your products effectively" />
               <div className="card-body">
-              <ProductActionsBar 
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              />
-              <ProductTable/>
+              <ProductActionsBar />
+              <ProductTable />
             </div>
           </div>
         </div>
