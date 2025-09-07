@@ -1,23 +1,13 @@
-import { Header } from "./products/components/Header";
-import { ProductActionsBar } from "./products/components/ProductActionsBar";
-import { ProductTable } from "./products/components/ProductTable";
+import { RouterProvider } from "react-router";
+import { ProductsProvider } from "./context/ProductsProvider";
+import { router } from "./router/app.router";
 
 function App() {
 
   return (
-    <>
-        <div className="container-fluid bg-light min-vh-100 py-4">
-          <div className="container">
-            <div className="card m-4">
-              <Header title="Product Management" subtitle="Manage your products effectively" />
-              <div className="card-body">
-              <ProductActionsBar />
-              <ProductTable />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <ProductsProvider>
+      <RouterProvider router={router} />
+    </ProductsProvider>
   );
 }
 
