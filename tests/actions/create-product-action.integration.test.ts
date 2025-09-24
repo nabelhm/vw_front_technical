@@ -1,18 +1,12 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { createProductAction } from '../../src/actions/create-product-action';
-import { productApi } from '../../src/api/product.api';
-import type { CreateProductData } from '../../src/types/product.interface';
+import { CreateProductData } from '../../src/types/product.interface';
 
-vi.mock('../../src/api/product.api');
+describe('createProductAction - Real Integration Tests', () => {
 
-describe('createProductAction - Integration Tests', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it('should create a product with valid data', async () => {
-    const productData: CreateProductData = {
-      name: 'Gaming Headset',
+  it('should create a product with real API call', async () => {
+    const createData: CreateProductData = {
+      name: `Gaming Headset ${Date.now()}`,
       category: 'Electronics',
       price: 129.99,
       stock: 25,
@@ -21,34 +15,56 @@ describe('createProductAction - Integration Tests', () => {
       status: 'active'
     };
 
-    const expectedApiResponse = {
-      id: 'api_generated_id',
-      name: 'Gaming Headset',
-      category: 'Electronics',
-      price: 129.99,
-      stock: 25,
-      description: 'High-quality gaming headset with surround sound',
-      image: 'https://example.com/headset.jpg',
-      status: 'active',
-      createdAt: '2024-01-01T00:00:00.000Z',
-      updatedAt: '2024-01-01T00:00:00.000Z'
+    const result = await createProductAction(createData);
+
+    expect(result).toBeDefined();
+    expect(result.id).toBeDefined();
+    expect(result.name).toBe(createData.name);
+    expect(result.category).toBe(createData.category);
+    expect(result.price).toBe(createData.price);
+    expect(result.stock).toBe(createData.stock);
+    expect(result.description).toBe(createData.description);
+    expect(result.image).toBe(createData.image);
+    expect(result.status).toBe(createData.status);
+
+    expect(result.createdAt).toBeDefined();
+    expect(result.updatedAt).toBeDefined();
+    expect(new Date(result.createdAt)).toBeInstanceOf(Date);
+    expect(new Date(result.updatedAt)).toBeInstanceOf(Date);
+  }, 15000);
+
+  it('should handle validation errors for invalid category', async () => {
+    const invalidCreateData: CreateProductData = {
+      name: `Invalid Product ${Date.now()}`,
+      category: 'InvalidCategory',
+      price: 99.99,
+      stock: 10,
+      description: 'Test description',
+      image: 'https://example.com/test.jpg',
+      status: 'active'
     };
 
-    vi.mocked(productApi.post).mockResolvedValue({ data: expectedApiResponse });
+    await expect(createProductAction(invalidCreateData))
+      .rejects
+      .toThrow(/Invalid category/);
+  }, 10000);
 
-    const result = await createProductAction(productData);
+  it('should create product with inactive status', async () => {
+    const createData: CreateProductData = {
+      name: `Inactive Product ${Date.now()}`,
+      category: 'Kitchen',
+      price: 59.99,
+      stock: 8,
+      description: 'Product created with inactive status',
+      image: 'https://example.com/inactive.jpg',
+      status: 'inactive'
+    };
 
-    expect(productApi.post).toHaveBeenCalledTimes(1);
-    expect(productApi.post).toHaveBeenCalledWith('/', expect.objectContaining({
-      name: 'Gaming Headset',
-      category: 'Electronics',
-      price: 129.99,
-      stock: 25,
-      description: 'High-quality gaming headset with surround sound',
-      image: 'https://example.com/headset.jpg',
-      status: 'active'
-    }));
-    
-    expect(result).toEqual(expectedApiResponse);
-  });
+    const result = await createProductAction(createData);
+
+    expect(result).toBeDefined();
+    expect(result.status).toBe('inactive');
+    expect(result.name).toBe(createData.name);
+    expect(result.category).toBe(createData.category);
+  }, 15000);
 });
